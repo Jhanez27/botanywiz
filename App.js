@@ -12,6 +12,7 @@ import Swiper from "react-native-swiper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/Homescreen";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 const Stack = createNativeStackNavigator();
@@ -25,7 +26,8 @@ const onboardingData = [
   },
   {
     title: "Identify Plant",
-    description: "Snap a photo of a plant to discover its name, uses.",
+    description:
+      "Snap or upload a photo of a plant to discover its name, uses.",
     image: require("./assets/image2.jpg"),
   },
 ];
@@ -53,10 +55,14 @@ const Onboarding = ({ navigation }) => {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.description}>{item.description}</Text>
           <Image source={item.image} style={styles.image} />
-          <TouchableOpacity style={styles.button} onPress={handleNext}>
-            <Text style={styles.buttonText}>
-              {index === onboardingData.length - 1 ? "Finish" : "Next"}
-            </Text>
+          <TouchableOpacity onPress={handleNext}>
+            <LinearGradient
+              colors={["#5B6842", "#626F47", "#6A7650"]}
+              style={styles.gradientButton}>
+              <Text style={styles.buttonText}>
+                {index === onboardingData.length - 1 ? "Finish" : "Next"}
+              </Text>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
       ))}
@@ -100,11 +106,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginBottom: 20,
   },
-  button: {
-    backgroundColor: "#388E3C",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
+
+  gradientButton: {
+    borderRadius: 15,
+    padding: 15,
+    width: 140,
+    alignItems: "center",
   },
   buttonText: {
     color: "#fff",

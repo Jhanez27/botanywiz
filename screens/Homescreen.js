@@ -6,6 +6,9 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  SafeAreaView,
+  Platform,
+  StatusBar,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -61,7 +64,7 @@ const HomeScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* App Bar */}
       <View style={styles.appBar}>
         <View style={styles.appBarContent}>
@@ -83,15 +86,15 @@ const HomeScreen = () => {
           </LinearGradient>
         </TouchableOpacity>
       </View>
-      {/* Plant List */}
 
+      {/* Plant List */}
       <FlatList
         data={plants}
         keyExtractor={(item) => item.id}
         renderItem={renderPlantItem}
         contentContainerStyle={styles.plantList}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -99,12 +102,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   appBar: {
-    height: 150,
+    height: 120,
     backgroundColor: "#657C6A",
-    justifyContent: "flex-end",
-    paddingBottom: 15,
+    justifyContent: "center",
   },
   appBarContent: {
     flexDirection: "row",
@@ -115,31 +118,31 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  appTitle: {
+    marginLeft: 3,
+    color: "#fff",
+    fontSize: 28,
+    fontWeight: "bold",
+    textShadowColor: "#2e3d2e", // Dark greenish-gray shadow
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+  },
   buttonContainer: {
     marginTop: 30,
     width: "100%",
     alignItems: "center",
-
     marginBottom: 30,
   },
-  appTitle: {
-    marginLeft: 12,
-    color: "white",
-    fontSize: 20,
-    fontWeight: "600",
+  gradientButton: {
+    borderRadius: 15,
+    padding: 15,
+    width: 280,
+    alignItems: "center",
   },
-
   buttonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginLeft: 20,
-    marginBottom: 10,
-    color: "#333",
   },
   plantList: {
     paddingHorizontal: 20,
@@ -166,12 +169,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#777",
     marginTop: 5,
-  },
-  gradientButton: {
-    borderRadius: 15,
-    padding: 15,
-    width: 280,
-    alignItems: "center",
   },
 });
 
